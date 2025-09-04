@@ -36,7 +36,7 @@ If the code and/or results presented here helped you for your own work, please c
 ```
 @misc{kaninit, 
 	title = {Initialization Schemes for Kolmogorov-Arnold Networks: An Empirical Study}, 
-	author = {Spyros Rigas and Verma Dhruv and Georgios Alexandridis and Yixuan Wang}, 
+	author = {Spyros Rigas and Dhruv Verma and Georgios Alexandridis and Yixuan Wang}, 
 	year = {2025}, 
 	eprint = {2509.03417}, 
 	archivePrefix = {arXiv}, 
