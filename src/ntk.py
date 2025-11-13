@@ -16,7 +16,12 @@ def _grad_flat_at_x(model, x_single):
 
 
 def ntk_matrix(model, X_subset):
-    J = jax.vmap(lambda x: _grad_flat_at_x(model, x))(X_subset)
+    # Vectorize over X_subset, broadcasting model
+    @nnx.vmap(in_axes=(None, 0), out_axes=0)
+    def grad_rows(m, x_single):
+        return _grad_flat_at_x(m, x_single)
+
+    J = grad_rows(model, X_subset)  # shape: (N_points, n_params)
     return J @ J.T
 
 
