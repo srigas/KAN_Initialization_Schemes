@@ -63,17 +63,25 @@ def _grad_flat_bc_at_xy_weighted(model, x_single, y_single, w):
     return g_flat
 
 def ntk_pde_matrix_weighted(model, pde_res_fn, X_pde, w_E):
-    w_E = jnp.ravel(w_E)
-    rows = [_grad_flat_pde_at_x_weighted(model, pde_res_fn, X_pde[i], w_E[i])
-            for i in range(X_pde.shape[0])]
-    J = jnp.stack(rows, axis=0)
+    w_E = jnp.ravel(w_E)  # (N,)
+
+    # Vectorize over PDE points and weights, broadcast model & pde_res_fn
+    @nnx.vmap(in_axes=(None, None, 0, 0), out_axes=0)
+    def grad_rows(m, pde_res_fn, x_single, w_single):
+        return _grad_flat_pde_at_x_weighted(m, pde_res_fn, x_single, w_single)
+
+    J = grad_rows(model, pde_res_fn, X_pde, w_E)  # (N_pde, n_params)
     return J @ J.T
 
 def ntk_bc_matrix_weighted(model, X_bc, Y_bc, w_B):
-    w_B = jnp.ravel(w_B)
-    rows = [_grad_flat_bc_at_xy_weighted(model, X_bc[i], Y_bc[i], w_B[i])
-            for i in range(X_bc.shape[0])]
-    J = jnp.stack(rows, axis=0)
+    w_B = jnp.ravel(w_B)  # (N,)
+
+    # Vectorize over BC points, targets, and weights, broadcast model
+    @nnx.vmap(in_axes=(None, 0, 0, 0), out_axes=0)
+    def grad_rows(m, x_single, y_single, w_single):
+        return _grad_flat_bc_at_xy_weighted(m, x_single, y_single, w_single)
+
+    J = grad_rows(model, X_bc, Y_bc, w_B)  # (N_bc, n_params)
     return J @ J.T
 
 
