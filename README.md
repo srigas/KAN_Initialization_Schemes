@@ -1,6 +1,6 @@
 # Introduction
 
-This repository contains the code and experimental results for the paper "[Initialization Schemes for Kolmogorov–Arnold Networks: An Empirical Study](https://arxiv.org/abs/2509.03417)".
+This repository contains the code and experimental results for the paper "[Initialization Schemes for Kolmogorov–Arnold Networks: An Empirical Study](https://openreview.net/forum?id=dwNXKkiP51)".
 
 
 # Getting Started
@@ -34,13 +34,11 @@ Open the notebooks in order (`1.*.ipynb` → `8.*.ipynb`) to reproduce all exper
 If the code and/or results presented here helped you for your own work, please cite our work as:
 
 ```
-@misc{kaninit, 
-	title = {Initialization Schemes for Kolmogorov-Arnold Networks: An Empirical Study}, 
+@inproceedings{kaninit,
+	title = {Initialization Schemes for Kolmogorov{\textendash}Arnold Networks: An Empirical Study},
 	author = {Spyros Rigas and Dhruv Verma and Georgios Alexandridis and Yixuan Wang}, 
-	year = {2025}, 
-	eprint = {2509.03417}, 
-	archivePrefix = {arXiv}, 
-	primaryClass = {cs.LG}, 
-	url = {https://arxiv.org/abs/2509.03417}
+	booktitle = {The Fourteenth International Conference on Learning Representations},
+	year = {2026},
+	url = {https://openreview.net/forum?id=dwNXKkiP51}
 }
 ```
